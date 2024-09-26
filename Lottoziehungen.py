@@ -1,8 +1,8 @@
 import random
 
 def lottoziehung(ziehungen, zahlenbereichMax):
-    ziehungenAnz = list(range(1, zahlenbereichMax + 1)) #von ChatGPT vorgeschlagen
-    zahlen = random.sample(ziehungenAnz, ziehungen) #von ChatGPT vorgeschlagen
+    ziehungenAnz = list(range(0, zahlenbereichMax + 1)) 
+    zahlen = random.sample(ziehungenAnz, ziehungen) 
     return zahlen
 
 
@@ -18,6 +18,6 @@ if __name__ == "__main__":
             else:
                 statistic[zahl] = 1
 
-    sorted_stat = dict(sorted(statistic.items())) #von ChatGPT vorgeschlagen
+    sorted_stat = dict(sorted(statistic.items()))
     for i in sorted_stat:
         print(i, ":", str(sorted_stat[i]) + " mal gezogen")
