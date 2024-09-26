@@ -1,8 +1,17 @@
 import random
 
 def lottoziehung(ziehungen, zahlenbereichMax):
-    ziehungenAnz = list(range(0, zahlenbereichMax + 1)) 
-    zahlen = random.sample(ziehungenAnz, ziehungen) 
+    zahlen = []
+    check = False
+    for i in range(ziehungen):         
+        zufallszahl = random.randint(1, zahlenbereichMax) 
+        for j in range(len(zahlen)):
+            if(zufallszahl == zahlen[j]): 
+                check = True
+                if(i != 0): i -= 1
+                break
+        if(check == False):
+            zahlen.append(zufallszahl)
     return zahlen
 
 
@@ -18,6 +27,6 @@ if __name__ == "__main__":
             else:
                 statistic[zahl] = 1
 
-    sorted_stat = dict(sorted(statistic.items()))
+    sorted_stat = dict(sorted(statistic.items())) #von ChatGPT vorgeschlagen
     for i in sorted_stat:
         print(i, ":", str(sorted_stat[i]) + " mal gezogen")
