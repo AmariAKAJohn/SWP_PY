@@ -4,6 +4,16 @@ a[1],a[0] = a[0],a[1]
 
 print(a)
 #----------------------------------------------------------
+# If lenght of array isnt known and we dont use len() function then we can use -1 to get the last element of the array.
+a = [1,2,3,4,5]
+print(a[-1])
+
+#----------------------------------------------------------
+# Slicing
+a = [1,2,3,4,5]
+print(a[1:3])
+# or from back to front
+print(a[-3:])
 
 #Normal Division vs Floor Division
 
