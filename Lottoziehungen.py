@@ -8,7 +8,6 @@ def lottoziehung(ziehungen, zahlenbereichMax):
         for j in range(len(zahlen)):
             if(zufallszahl == zahlen[j]): 
                 check = True
-                if(i != 0): i -= 1
                 break
         if(check == False):
             zahlen.append(zufallszahl)
