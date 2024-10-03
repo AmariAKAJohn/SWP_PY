@@ -1,3 +1,10 @@
+#Einfache Arraystellenwechselung
+a = [1,2,3,4,5]
+a[1],a[0] = a[0],a[1]
+
+print(a)
+#----------------------------------------------------------
+
 #Normal Division vs Floor Division
 
 #Normal Division
@@ -59,7 +66,7 @@ del a
 
 #Tuple, Range, Set
 
-#Tuple: A tuple is a collection which is unchangeable. 
+#Tuple: A tuple is a collection which is unchangeable.
 a = (1,2,3)
 print(a)
 
