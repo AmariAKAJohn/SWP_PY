@@ -46,12 +46,6 @@ def ConvertCardAJQK(cardis):
             cardCopy[0][i] = int(cardCopy[0][i])
     return cardCopy
 
-def HighCard(cards):
-    if not Pair(cards) and not TwoPair(cards) and not ThreeOfAKind(cards) and not FourOfAKind(cards) and not FullHouse(cards) and not Straight(cards) and not Flush(cards) and not StraightFlush(cards) and not RoyalFlush(cards):
-        return True
-    else:
-        return False
-    
 def Flush(cards):
     if cards[1].count(cards[1][0]) == 5:
         return True
@@ -123,54 +117,6 @@ def RoyalFlush(cards):
         return False
     
 
-def WhoWins(playerCards, enemyCards, layedCards):
-    playerCards = ConvertCardAJQK(playerCards)
-    enemyCards = ConvertCardAJQK(enemyCards)
-    layedCards = ConvertCardAJQK(layedCards)
-    playerCards = [playerCards[0] + layedCards[0], playerCards[1] + layedCards[1]]
-    enemyCards = [enemyCards[0] + layedCards[0], enemyCards[1] + layedCards[1]]
-    
-    if RoyalFlush(playerCards):
-        return "Player wins with RoyalFlush"
-    elif StraightFlush(playerCards):
-        return "Player wins with StraightFlush"
-    elif FourOfAKind(playerCards):
-        return "Player wins with FourOfAKind"
-    elif FullHouse(playerCards):
-        return "Player wins with FullHouse"
-    elif Flush(playerCards):
-        return "Player wins with Flush"
-    elif Straight(playerCards):
-        return "Player wins with Straight"
-    elif ThreeOfAKind(playerCards):
-        return "Player wins with ThreeOfAKind"
-    elif TwoPair(playerCards):
-        return "Player wins with TwoPair"
-    elif Pair(playerCards):
-        return "Player wins with Pair"
-    elif HighCard(playerCards):
-        return "Player wins with HighCard"
-    
-    if RoyalFlush(enemyCards):
-        return "Enemy wins with RoyalFlush"
-    elif StraightFlush(enemyCards):
-        return "Enemy wins with StraightFlush"
-    elif FourOfAKind(enemyCards):
-        return "Enemy wins with FourOfAKind"
-    elif FullHouse(enemyCards):
-        return "Enemy wins with FullHouse"
-    elif Flush(enemyCards):
-        return "Enemy wins with Flush"
-    elif Straight(enemyCards):
-        return "Enemy wins with Straight"
-    elif ThreeOfAKind(enemyCards):
-        return "Enemy wins with ThreeOfAKind"
-    elif TwoPair(enemyCards):
-        return "Enemy wins with TwoPair"
-    elif Pair(enemyCards):
-        return "Enemy wins with Pair"
-    else:
-        return "Enemy wins with HighCard"
 
 def CreateStatistic(rounds):
     statistic = {"RoyalFlush": 0, "StraightFlush": 0, "FourOfAKind": 0, "FullHouse": 0, "Flush": 0, "Straight": 0, "ThreeOfAKind": 0, "TwoPair": 0, "Pair": 0, "HighCard": 0}
@@ -209,56 +155,3 @@ def CreateStatistic(rounds):
     print("RoyalFlush ", str(statistic["RoyalFlush"]) + " -> " + str(statistic["RoyalFlush"]/rounds*100) + "%")
     return statistic
 
-def PlayAGame():
-    playerCount = input("How many players do you want to play against? ")
-    ec = []
-    layedCards = []
-    if int(playerCount) < 2:
-        print("You need at least 2 players to play poker.")
-        return
-    else:
-        cards = sortCards(drawRandomCards(2))
-        print(cards)
-        for i in range(int(playerCount)-1):
-            EnemyCards = sortCards(drawRandomCards(2))
-            ec.append(EnemyCards)
-            print("Die ersten 3 Karten werden gelegt")
-            for i in range(3):
-                layedCards.append(sortCards(drawRandomCards(1)))
-            print(layedCards)
-            print("Fold or Call? ---- Fold = 0, Call = 1")
-            choice = input("Your choice: ")
-            if choice == "0":
-                print("Fold")
-                return
-            elif choice == "1":
-                print("Call")
-                print("Die vierte Karte wird gelegt")
-                layedCards.append(sortCards(drawRandomCards(1)))
-                print(layedCards)
-                print("Fold or Call? ---- Fold = 0, Call = 1")
-                choice = input("Your choice: ")
-                if choice == "0":
-                    print("Fold")
-                    return
-                elif choice == "1":
-                    print("Call")
-                    print("Die fünfte Karte wird gelegt")
-                    layedCards.append(sortCards(drawRandomCards(1)))
-                    print(layedCards)
-                    print("Fold or Call? ---- Fold = 0, Call = 1")
-                    choice = input("Your choice: ")
-                    if choice == "0":
-                        print("Fold")
-                        return
-                    elif choice == "1":
-                        print("Call")
-                        print("Die Karten der Gegner")
-                        print(ec)
-                        print("Deine Karten")
-
-                    
-
-
-if __name__ == "__main__":
-    PlayAGame()
