@@ -26,6 +26,6 @@ if __name__ == "__main__":
             else:
                 statistic[zahl] = 1
 
-    sorted_stat = dict(sorted(statistic.items())) #von ChatGPT vorgeschlagen
+    sorted_stat = dict(sorted(statistic.items()))
     for i in sorted_stat:
         print(i, ":", str(sorted_stat[i]) + " mal gezogen")
