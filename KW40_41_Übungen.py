@@ -23,7 +23,9 @@ print(5/2)
 
 #Floor Division
 print(5//2)
-# Here the output will be 2 because it is floor division and it will always round down to the nearest integer value.
+# Here the output will be 2 because it is floor division and it will always take the nearest integer value.
+# Like in Primary School.
+#5:2 = 2 Rest 1 -> the Rest is ignored in Floor Division. 
 #----------------------------------------------------------
 # Logical Operators
 # and, or, lt, eq

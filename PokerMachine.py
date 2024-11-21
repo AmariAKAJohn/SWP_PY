@@ -3,9 +3,9 @@ import copy  # Import the copy module to perform deep copy
 
 random.seed()
 
-numbers2 = {1: "A", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", 10: "10", 11: "J", 12: "Q", 13: "K"}
-
 def drawRandomCards(amount):
+    numbers2 = {1: "A", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", 10: "10", 11: "J", 12: "Q", 13: "K"}
+
     drawnCards = set()
     cards = [[], []]
     
@@ -21,6 +21,8 @@ def drawRandomCards(amount):
     return cards
 
 def sortCards(cards):
+    numbers2 = {1: "A", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", 10: "10", 11: "J", 12: "Q", 13: "K"}
+
     sortedCards = [ [],[] ]
     for i in range(1, 14):
         for j in range(len(cards[0])):
@@ -55,7 +57,6 @@ def Flush(cards):
 def Straight(cards):
     cards = ConvertCardAJQK(cards)
     cards[0].sort()
-
     if cards[0][0] == 1 and cards[0][len(cards[0])-1] == 13:
         cards[0][0] = 14
         cards[0].sort()
@@ -115,13 +116,11 @@ def RoyalFlush(cards):
         return True
     else:
         return False
-    
 
-
-def CreateStatistic(rounds):
+def CreateStatistic(rounds, handAmount=5):
     statistic = {"RoyalFlush": 0, "StraightFlush": 0, "FourOfAKind": 0, "FullHouse": 0, "Flush": 0, "Straight": 0, "ThreeOfAKind": 0, "TwoPair": 0, "Pair": 0, "HighCard": 0}
     for i in range(rounds):
-        cards = drawRandomCards(5)
+        cards = drawRandomCards(handAmount)
         if RoyalFlush(cards):
             statistic["RoyalFlush"] += 1
         elif StraightFlush(cards):
@@ -143,15 +142,23 @@ def CreateStatistic(rounds):
         else:
             statistic["HighCard"] += 1
 
-    print("HighCard ", str(statistic["HighCard"]) + " -> " + str(statistic["HighCard"]/rounds*100) + "%")
-    print("Pair ", str(statistic["Pair"]) + " -> " + str(statistic["Pair"]/rounds*100) + "%")
-    print("TwoPair ", str(statistic["TwoPair"]) + " -> " + str(statistic["TwoPair"]/rounds*100) + "%")
-    print("ThreeOfAKind ", str(statistic["ThreeOfAKind"]) + " -> " + str(statistic["ThreeOfAKind"]/rounds*100) + "%")
-    print("Straight ", str(statistic["Straight"]) + " -> " + str(statistic["Straight"]/rounds*100) + "%")
-    print("Flush ", str(statistic["Flush"]) + " -> " + str(statistic["Flush"]/rounds*100) + "%")
-    print("FullHouse ", str(statistic["FullHouse"]) + " -> " + str(statistic["FullHouse"]/rounds*100) + "%")
-    print("FourOfAKind ", str(statistic["FourOfAKind"]) + " -> " + str(statistic["FourOfAKind"]/rounds*100) + "%")
-    print("StraightFlush ", str(statistic["StraightFlush"]) + " -> " + str(statistic["StraightFlush"]/rounds*100) + "%")
-    print("RoyalFlush ", str(statistic["RoyalFlush"]) + " -> " + str(statistic["RoyalFlush"]/rounds*100) + "%")
+    print("HighCard %d -> %.2f%%" % (statistic["HighCard"], statistic["HighCard"] / rounds * 100))
+    print("Pair %d -> %.2f%%" % (statistic["Pair"], statistic["Pair"] / rounds * 100))
+    print("TwoPair %d -> %.2f%%" % (statistic["TwoPair"], statistic["TwoPair"] / rounds * 100))
+    print("ThreeOfAKind %d -> %.2f%%" % (statistic["ThreeOfAKind"], statistic["ThreeOfAKind"] / rounds * 100))
+    print("Straight %d -> %.2f%%" % (statistic["Straight"], statistic["Straight"] / rounds * 100))
+    print("Flush %d -> %.2f%%" % (statistic["Flush"], statistic["Flush"] / rounds * 100))
+    print("FullHouse %d -> %.2f%%" % (statistic["FullHouse"], statistic["FullHouse"] / rounds * 100))
+    print("FourOfAKind %d -> %.2f%%" % (statistic["FourOfAKind"], statistic["FourOfAKind"] / rounds * 100))
+    print("StraightFlush %d -> %.2f%%" % (statistic["StraightFlush"], statistic["StraightFlush"] / rounds * 100))
+    print("RoyalFlush %d -> %.2f%%" % (statistic["RoyalFlush"], statistic["RoyalFlush"] / rounds * 100))
+
     return statistic
 
+if __name__ == "__main__":
+   try:
+    times = input("How many times do you want to run the simulation? ")
+    cardA = input("How many cards do you want to draw?")
+    CreateStatistic(int(times), int(cardA))
+   except ValueError:
+    print("Please enter a valid number")
