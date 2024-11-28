@@ -71,33 +71,20 @@ def StraightFlush(cards):
     else:
         return False
 
-def FourOfAKind(cards):
+def TwoThreeFourOfAKind(cards, amount):
     cards = ConvertCardAJQK(cards)
     for i in range(1, 14):
-        if cards[0].count(i) == 4:
+        if cards[0].count(i) == amount:
             return True
     return False
 
-def ThreeOfAKind(cards):
-    cards = ConvertCardAJQK(cards)
-    for i in range(1, 14):
-        if cards[0].count(i) == 3:
-            return True
-    return False
 
 def FullHouse(cards):
-    if ThreeOfAKind(cards):
+    if TwoThreeFourOfAKind(cards, 3):
         cards = ConvertCardAJQK(cards)
         for i in range(1, 14):
             if cards[0].count(i) == 2:
                 return True
-    return False
-
-def Pair(cards):
-    cards = ConvertCardAJQK(cards)
-    for i in range(1, 14):
-        if cards[0].count(i) == 2:
-            return True
     return False
 
 def TwoPair(cards):
@@ -112,11 +99,8 @@ def TwoPair(cards):
         return False
     
 def RoyalFlush(cards):
-    if StraightFlush(cards) and (cards[0][0] == "A" and cards[0][len(cards[0])-1] == "K"):
-        return True
-    else:
-        return False
-
+    return StraightFlush(cards) and (cards[0][0] == "A" and cards[0][len(cards[0])-1] == "K")
+        
 def CreateStatistic(rounds, handAmount=5):
     statistic = {"RoyalFlush": 0, "StraightFlush": 0, "FourOfAKind": 0, "FullHouse": 0, "Flush": 0, "Straight": 0, "ThreeOfAKind": 0, "TwoPair": 0, "Pair": 0, "HighCard": 0}
     for i in range(rounds):
@@ -125,7 +109,7 @@ def CreateStatistic(rounds, handAmount=5):
             statistic["RoyalFlush"] += 1
         elif StraightFlush(cards):
             statistic["StraightFlush"] += 1
-        elif FourOfAKind(cards):
+        elif TwoThreeFourOfAKind(cards, 4):
             statistic["FourOfAKind"] += 1
         elif FullHouse(cards):
             statistic["FullHouse"] += 1
@@ -133,32 +117,35 @@ def CreateStatistic(rounds, handAmount=5):
             statistic["Flush"] += 1
         elif Straight(cards):
             statistic["Straight"] += 1
-        elif ThreeOfAKind(cards):
+        elif TwoThreeFourOfAKind(cards, 3):
             statistic["ThreeOfAKind"] += 1
         elif TwoPair(cards):
             statistic["TwoPair"] += 1
-        elif Pair(cards):
+        elif TwoThreeFourOfAKind(cards, 2):
             statistic["Pair"] += 1
         else:
             statistic["HighCard"] += 1
 
-    print("HighCard %d -> %.2f%%" % (statistic["HighCard"], statistic["HighCard"] / rounds * 100))
-    print("Pair %d -> %.2f%%" % (statistic["Pair"], statistic["Pair"] / rounds * 100))
-    print("TwoPair %d -> %.2f%%" % (statistic["TwoPair"], statistic["TwoPair"] / rounds * 100))
-    print("ThreeOfAKind %d -> %.2f%%" % (statistic["ThreeOfAKind"], statistic["ThreeOfAKind"] / rounds * 100))
-    print("Straight %d -> %.2f%%" % (statistic["Straight"], statistic["Straight"] / rounds * 100))
-    print("Flush %d -> %.2f%%" % (statistic["Flush"], statistic["Flush"] / rounds * 100))
-    print("FullHouse %d -> %.2f%%" % (statistic["FullHouse"], statistic["FullHouse"] / rounds * 100))
-    print("FourOfAKind %d -> %.2f%%" % (statistic["FourOfAKind"], statistic["FourOfAKind"] / rounds * 100))
-    print("StraightFlush %d -> %.2f%%" % (statistic["StraightFlush"], statistic["StraightFlush"] / rounds * 100))
-    print("RoyalFlush %d -> %.2f%%" % (statistic["RoyalFlush"], statistic["RoyalFlush"] / rounds * 100))
+    print(f"HighCard %d -> %.2f%%" % (statistic["HighCard"], statistic["HighCard"] / rounds * 100))
+    print(f"Pair %d -> %.2f%%" % (statistic["Pair"], statistic["Pair"] / rounds * 100))
+    print(f"TwoPair %d -> %.2f%%" % (statistic["TwoPair"], statistic["TwoPair"] / rounds * 100))
+    print(f"ThreeOfAKind %d -> %.2f%%" % (statistic["ThreeOfAKind"], statistic["ThreeOfAKind"] / rounds * 100))
+    print(f"Straight %d -> %.2f%%" % (statistic["Straight"], statistic["Straight"] / rounds * 100))
+    print(f"Flush %d -> %.2f%%" % (statistic["Flush"], statistic["Flush"] / rounds * 100))
+    print(f"FullHouse %d -> %.2f%%" % (statistic["FullHouse"], statistic["FullHouse"] / rounds * 100))
+    print(f"FourOfAKind %d -> %.2f%%" % (statistic["FourOfAKind"], statistic["FourOfAKind"] / rounds * 100))
+    print(f"StraightFlush %d -> %.2f%%" % (statistic["StraightFlush"], statistic["StraightFlush"] / rounds * 100))
+    print(f"RoyalFlush %d -> %.2f%%" % (statistic["RoyalFlush"], statistic["RoyalFlush"] / rounds * 100))
 
     return statistic
 
+def main():
+    try:
+        times = input("How many times do you want to run the simulation? ")
+        cardA = input("How many cards do you want to draw?")
+        CreateStatistic(int(times), int(cardA))
+    except ValueError:
+        print("Please enter a valid number")
+
 if __name__ == "__main__":
-   try:
-    times = input("How many times do you want to run the simulation? ")
-    cardA = input("How many cards do you want to draw?")
-    CreateStatistic(int(times), int(cardA))
-   except ValueError:
-    print("Please enter a valid number")
+    main()
