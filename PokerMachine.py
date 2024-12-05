@@ -34,7 +34,7 @@ def sortCards(cards):
 def ConvertCardAJQK(cardis):
     # Make a deep copy of the input list to avoid modifying the original
     cardCopy = copy.deepcopy(cardis)
-    
+     
     for i in range(len(cardCopy[0])):
         if cardCopy[0][i] == "A":
             cardCopy[0][i] = 1
@@ -86,7 +86,7 @@ def FullHouse(cards):
             if cards[0].count(i) == 2:
                 return True
     return False
-
+      
 def TwoPair(cards):
     cards = ConvertCardAJQK(cards)
     countPair = 0
