@@ -23,6 +23,8 @@ class Katze(Hund):
 
     def __str__(self):
         return self.name + " ist eine Katze"
+    
 a = Katze("Minka")
-
 print(a)
+#-----------------------------------------
+#Danda: Verbindung Buildin mit Fixen Code 
