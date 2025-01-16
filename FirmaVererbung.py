@@ -1,3 +1,9 @@
+from enum import Enum
+
+class Geschlecht(Enum):
+    MÄNNLICH = 1
+    WEIBLICH = 2
+
 class Firma():
 
     def __init__(self, name):
@@ -20,7 +26,7 @@ class Firma():
         return allAbteilungsleiter
     
     def get_all_abteilungen(self):
-        return self.abteilungen.count()
+        return len(self.abteilungen)
     
     def get_biggest_abteilung(self):
         biggestAbteilung = None
@@ -32,19 +38,22 @@ class Firma():
         return biggestAbteilung
 
     def prozent_männer_frauen(self):
-        allMitarbeiter = self.get_all_mitarbeiter()
+        allMitarbeiter = []
+        for abteilung in self.abteilungen:
+            allMitarbeiter += abteilung.mitarbeiter
         anzahlMänner = 0
         anzahlFrauen = 0
-        for mitarbeiter in allMitarbeiter:
-            if mitarbeiter.geschlecht == "m":
+        for i in allMitarbeiter:
+            if i.geschlecht == Geschlecht.MÄNNLICH:
                 anzahlMänner += 1
-            else:
+            elif i.geschlecht == Geschlecht.WEIBLICH:
                 anzahlFrauen += 1
-        print("Männer: " + str(anzahlMänner / len(allMitarbeiter) * 100))
-        print("Frauen: " + str(anzahlFrauen / len(allMitarbeiter) * 100))
-        #print("Männer = " + str((len(allMitarbeiter) / anzahlMänner) * 100))
-        #print("Frauen = " + str((len(allMitarbeiter) / anzahlFrauen) * 100)) 
 
+        prozentMänner = (anzahlMänner / len(allMitarbeiter)) * 100
+        prozentFrauen = (anzahlFrauen / len(allMitarbeiter)) * 100
+        print(f"Männer: {prozentMänner:.2f}%")
+        print(f"Frauen: {prozentFrauen:.2f}%")
+    
     def __str__(self):
         allAbteilungen = ""
         for abteilung in self.abteilungen:
@@ -82,12 +91,12 @@ class Abteilung():
     def __str__(self):
         return "Abteilung " + self.name + " hat: " +  str(len(self.mitarbeiter)) + " Mitarbeiter" + " und wird geleitet von: " + self.leiter.name
 
-johannes = Mitarbeiter("Johannes", "m", 3000)
-john = Mitarbeiter("John", "m", 3000)
-jane = Mitarbeiter("Jane", "w", 4000)
-peter = Mitarbeiter("Peter", "m", 3500)
-hans = Mitarbeiter("Hans", "m", 3200)
-gabe = Mitarbeiter("Gabe", "m", 3100)
+johannes = Mitarbeiter("Johannes", Geschlecht.MÄNNLICH, 3000)
+john = Mitarbeiter("John", Geschlecht.MÄNNLICH, 3000)
+jane = Mitarbeiter("Jane", Geschlecht.WEIBLICH, 4000)
+peter = Mitarbeiter("Peter", Geschlecht.MÄNNLICH, 3500)
+hans = Mitarbeiter("Hans", Geschlecht.WEIBLICH, 3200)
+gabe = Mitarbeiter("Gabe", Geschlecht.MÄNNLICH, 3100)
 
 edv = Abteilung("EDV", john)
 info = Abteilung("Info", jane)
@@ -103,4 +112,4 @@ firma = Firma("John AG")
 firma.add_abteilung(edv)
 firma.add_abteilung(info)
 
-print(firma.get_biggest_abteilung())
+firma.prozent_männer_frauen()
