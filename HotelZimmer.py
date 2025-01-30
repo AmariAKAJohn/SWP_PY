@@ -17,9 +17,9 @@ class Room:
 
 class Hotel:
     zimmer = []
-
     def book_room_random(self):
         inputtype = input("Welches Zimmer möchten Sie buchen? (Einzelzimmer (1) oder Doppelzimmer (2)): ")
+        room_type = None 
         try:
             inputtype = int(inputtype)
             room_type = RoomType(inputtype)  
@@ -47,9 +47,14 @@ class Hotel:
             if z.nr == nr and z.verfügbar == False:
                 z.verfügbar = True
                 return z
-            
         return "Zimmer nicht gebucht"
     
+    def anzahlFreieZimmer(self):
+        anzahlZimmer = 0
+        for zim in self.zimmer:
+            if zim.verfügbar == True:
+                anzahlZimmer += 1
+        return anzahlZimmer
 def main():
     hotel = Hotel()
     hotel.zimmer.append(Room(1, RoomType.Einzelzimmer, 50, True))
@@ -75,11 +80,14 @@ def main():
 
     print(hotel.book_room_random())
     print(hotel.book_with_numnber(3))
+
+    print(hotel.anzahlFreieZimmer())
+    
     print(hotel.cancle_booking(3))
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as err:
-        print("Something went wrong!")
+        print("Ein Fehler ist aufgetreten: ", err)
         sys.exit(1)
