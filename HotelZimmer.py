@@ -13,7 +13,7 @@ class Room:
         self.verfügbar = verfügbar
     
     def __str__(self):
-        return f"Zimmer Nummer: {self.nr}, Typ: {self.typ}, Preis: {self.preis}, Verfügbar: {self.verfügbar}"
+        return f'Zimmer Nummer: {self.nr}, Typ: {self.typ}, Preis: {self.preis}, Verfügbar: {"Nein" if not self.verfügbar else "Ja"}'
 
 class Hotel:
     zimmer = []
