@@ -41,10 +41,20 @@ class LinkedList:
             print(currentNode.data, end=" -> ")
             currentNode = currentNode.next
 
+    def listLenght(self):
+        count = 0
+        currentNode = self.head
+        while currentNode is not None:
+            count += 1
+            currentNode = currentNode.next
+        return count
+
 class MainProgram:
     ll = LinkedList()
     for i in range(22):
         f = random.randint(1, 1900)
         ll.addNode(f)
-
+        
     ll.printList()
+    print("\n")
+    print(ll.listLenght())
